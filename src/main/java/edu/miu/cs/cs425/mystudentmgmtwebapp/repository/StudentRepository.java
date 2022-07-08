@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Long> {
@@ -20,4 +21,8 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     @Modifying
     @Query("update Student s set s.classroom = ?1 where s.studentId = ?2")
     void update(Classroom classroom, long id);
+
+    @Query(value = "select p from Student p where p.name = :name")
+    Optional<Student> getStudentByName(String name);
+
 }

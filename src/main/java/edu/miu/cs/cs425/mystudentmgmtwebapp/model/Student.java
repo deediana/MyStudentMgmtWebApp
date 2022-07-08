@@ -23,7 +23,7 @@ public class Student {
 
     @OneToOne
     @JoinColumn(name="transcript_id", nullable = false, unique = true)
-//    @OneToOne(mappedBy = "student", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+
     private Transcript transcript;
 
     @ManyToOne()

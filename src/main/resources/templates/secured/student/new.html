@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>E-Registrar- New Student</title>
+</head>
+<body>
+<header th:replace="fragments/header :: header"></header>
+  <main>
+    <h1>New Student Form</h1>
+    <div style="border: 1px solid;">
+      <div>
+        Fields marked with asterik(*) are required
+      </div>
+    </div>
+    <form method="post" action="/e-registrar/student/new" th:object="${student}">
+      <fieldset>
+        <div>
+          <label>Student Name*</label>
+        </div>
+        <div>
+          <input name="name" type="text" th:value="${student.name}" required>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Transcript</legend>
+        <div>
+          <label>Degree Title</label>
+        </div>
+        <div>
+          <div><span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style = "color:red;"></span></div>
+          <input name="degree title" type="text" th:field="*{transcript.degreeTitle}" autofocus>
+        </div>
+      </fieldset>
+      <div>
+        <a class="std-lnk-btn" href="/e-registrar/student/list">Cancel</a>
+        <input class="std-btn" type="reset" value="Reset">
+        <input class="std-btn" type="submit" value="Add Student">
+      </div>
+
+    </form>
+  </main>
+</body>
+</html>

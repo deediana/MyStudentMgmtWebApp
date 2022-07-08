@@ -6,6 +6,7 @@ import edu.miu.cs.cs425.mystudentmgmtwebapp.model.Student;
 import edu.miu.cs.cs425.mystudentmgmtwebapp.repository.StudentRepository;
 import edu.miu.cs.cs425.mystudentmgmtwebapp.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,19 +19,27 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     private StudentRepository studentRepository;
 
-    @Override
-    public List<Student> getAllStudents() {
-        return studentRepository.findAll();
+    public StudentServiceImpl(StudentRepository studentRepository){
+        this.studentRepository = studentRepository;
     }
 
-    /**
-     * Saves Student data
-     * @param s Student data object to be saved
-     * @return saved student data object
-     */
     @Override
-    public Student save(Student s) {
-        return studentRepository.save(s);
+    public Student addNewStudent(Student student) {
+        var newStudent=studentRepository.save(student);
+        return newStudent;
+    }
+
+
+    @Override
+    public List<Student> getAllStudents() {
+        var students=studentRepository.findAll(Sort.by("name"));
+        return students;
+    }
+
+    @Override
+    public Student getStudentById(Long studentId) {
+        return studentRepository.findById(studentId)
+                .orElse(null);
     }
 
     @Override
@@ -44,12 +53,12 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student getStudentById(long id) {
-        return studentRepository.findById(id).orElse(null);
+    public Student updateStudent(Student updatedStudent) {
+        return studentRepository.save(updatedStudent);
     }
 
     @Override
-    public void updateStudent(Classroom classroom, long studentId) {
-        studentRepository.update(classroom, studentId);
+    public void deleteStudentById(Long studentId) {
+        studentRepository.deleteById(studentId);
     }
 }

@@ -12,23 +12,25 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.concurrent.Flow;
+
 
 @Controller
 @RequestMapping(value = {"/student", "/e-registrar/student"})
 public class StudentController {
+
     private StudentService studentService;
 
     public StudentController(StudentService studentService) {
+
         this.studentService = studentService;
     }
 
     @GetMapping(value = {"/list"})
     public ModelAndView listStudents() {
-        var modelAndView = new ModelAndView();
+
         var students = studentService.getAllStudents();
+        var modelAndView = new ModelAndView();
         modelAndView.addObject("students", students);
-        modelAndView.addObject("studentsCount", ((List)students).size());
         modelAndView.setViewName("secured/student/list");
         return modelAndView;
     }
@@ -39,20 +41,23 @@ public class StudentController {
         return "secured/student/new";
     }
 
+
     @PostMapping(value = {"/new"})
-    public String registerNewStudent(@Valid @ModelAttribute("student") Flow.Student student,
+    public String addNewStudent(@Valid @ModelAttribute("student") Student student,
                                        BindingResult bindingResult, Model model) {
         if(bindingResult.hasErrors()) {
-            model.addAttribute("student", student);
+            model.addAttribute("student",student);
             model.addAttribute("errors", bindingResult.getAllErrors());
             return "secured/student/new";
         }
-        studentService.saveStudent(student);
+        studentService.addNewStudent(student);
         return "redirect:/e-registrar/student/list";
     }
 
+
+
     @GetMapping(value = {"/edit/{studentId}"})
-    public String editStudent(@PathVariable Integer studentId, Model model) {
+    public String editStudent(@PathVariable Long studentId, Model model) {
         var student = studentService.getStudentById(studentId);
         if(student != null) {
             model.addAttribute("student", student);
@@ -69,12 +74,12 @@ public class StudentController {
             model.addAttribute("errors", bindingResult.getAllErrors());
             return "secured/student/edit";
         }
-        StudentService.saveStudent(student);
+        studentService.updateStudent(student);
         return "redirect:/e-registrar/student/list";
     }
 
     @GetMapping(value = {"/delete/{studentId}"})
-    public String deleteStudent(@PathVariable Integer studentId) {
+    public String deleteStudent(@PathVariable Long studentId) {
         studentService.deleteStudentById(studentId);
         return "redirect:/e-registrar/student/list";
     }
