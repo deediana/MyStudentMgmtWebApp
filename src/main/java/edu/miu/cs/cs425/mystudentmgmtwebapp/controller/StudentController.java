@@ -4,6 +4,7 @@ package edu.miu.cs.cs425.mystudentmgmtwebapp.controller;
 import edu.miu.cs.cs425.mystudentmgmtwebapp.model.Student;
 import edu.miu.cs.cs425.mystudentmgmtwebapp.model.Transcript;
 import edu.miu.cs.cs425.mystudentmgmtwebapp.service.StudentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,15 +16,16 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping(value = {"/student", "/e-registrar/student"})
+@RequestMapping(value = { "/e-registrar/student"})
 public class StudentController {
 
+    @Autowired
     private StudentService studentService;
 
-    public StudentController(StudentService studentService) {
-
-        this.studentService = studentService;
-    }
+//    public StudentController(StudentService studentService) {
+//
+//        this.studentService = studentService;
+//    }
 
     @GetMapping(value = {"/list"})
     public ModelAndView listStudents() {

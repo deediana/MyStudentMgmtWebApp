@@ -1,25 +1,35 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>E-Registrar</title>
+    <style>
+        table {
+            border: 1px solid;
+            border-collapse: collapse;
+        }
+        table th, table td {
+            border: 1px solid;
+            padding: 1em;
+        }
+    </style>
 </head>
 <body>
-<header th:replace="fragments/header :: header"></header>
+    <header th:replace="fragments/header :: header"></header>
     <main>
-    <h1>List of our Students</h1>
-    <div>
-        <a href ="/e-registrar/student/new"> Add New Student</a>
-    </div>
+        <h1>List of our Students</h1>
+        <div>
+            <p><a href ="/e-registrar/student/new"> Add New Student</a></p>
+        </div>
         <table>
             <thead>
-            <tr>
-                <th>#</th>
-                <th>Student Name</th>
-                <th>Transcript</th>
-                <th></th>
-                <th></th>
-            </tr>
+                <tr>
+                    <th>#</th>
+                    <th>Student Name</th>
+                    <th>Transcript</th>
+                    <th></th>
+                    <th></th>
+                </tr>
             </thead>
             <tbody>
                 <tr th:each="student, counter : ${students}">
@@ -29,13 +39,13 @@
                         <p>
                             <span th:text="${student.transcript.degreeTitle}"></span><br>
                         </p>
-                    </td>
-                    <td th:if="${student.transcript == null}"></td>
-                    <td><a th:href="@{'/e-registrar/student/edit/{studentId}'(studentId=${student.studentId})}">Edit</a></td>
-                    <td><a th:href="@{'/e-registrar/student/delete/{studentId}'(studentId=${student.studentId})}">Delete</a></td>
-                </tr>
-            </tbody>
-        </table>
-    </main>
+                        </td>
+                        <td th:if="${student.transcript == null}"></td>
+                        <td><a th:href="@{'/e-registrar/student/edit/{studentId}'(studentId=${student.studentId})}">Edit</a></td>
+                        <td><a th:href="@{'/e-registrar/student/delete/{studentId}'(studentId=${student.studentId})}">Delete</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
 </body>
 </html>
