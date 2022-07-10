@@ -30,6 +30,33 @@
           <input name="name" type="text" th:value="${student.name}" autofocus>
         </div>
       </fieldset>
+        <fieldset>
+          <div>
+            <label>Student Number</label>
+          </div>
+          <div>
+            <div><span th:if="${#fields.hasErrors('studentNumber')}" th:errors="*{studentNumber}" style="color:red;"></span></div>
+            <input name="studentNumber" type="text" th:value="${student.studentNumber}">
+          </div>
+        </fieldset>
+        <fieldset>
+          <div>
+            <label>CGPA</label>
+          </div>
+          <div>
+            <div><span th:if="${#fields.hasErrors('cgpa')}" th:errors="*{cgpa}"></span></div>
+            <input name="cgpa" type="text" th:value="${student.cgpa}">
+          </div>
+        </fieldset>
+        <fieldset>
+          <div>
+            <label>Admission date</label>
+          </div>
+          <div>
+            <div><span th:if="${#fields.hasErrors('admissionDate')}" th:errors="*{admissionDate}"></span></div>
+            <input name="admissionDate" type="date" th:value="${student.admissionDate}">
+          </div>
+        </fieldset>
       <fieldset>
         <legend>Transcript</legend>
         <div>

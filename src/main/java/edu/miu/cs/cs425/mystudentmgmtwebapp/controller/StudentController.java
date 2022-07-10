@@ -39,7 +39,7 @@ public class StudentController {
 
     @GetMapping(value = {"/new"})
     public String displayNewStudentForm(Model model) {
-        model.addAttribute("student", new Student(null, null, null,null,new Transcript()));
+        model.addAttribute("student", new Student());
         return "secured/student/new";
     }
 

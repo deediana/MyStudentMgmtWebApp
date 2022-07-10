@@ -26,6 +26,9 @@
                 <tr>
                     <th>#</th>
                     <th>Student Name</th>
+                    <th>Student Number</th>
+                    <th>CGPA</th>
+                    <th>Admission Date</th>
                     <th>Transcript</th>
                     <th></th>
                     <th></th>
@@ -35,6 +38,9 @@
                 <tr th:each="student, counter : ${students}">
                     <th th:text="${counter.count}+${'.'}"></th>
                     <td th:text="${student.name}"></td>
+                    <td th:text="${student.studentNumber}"></td>
+                    <td th:text="${student.cgpa}"></td>
+                    <td th:text="${student.admissionDate}"></td>
                     <td th:if="${student.transcript != null}">
                         <p>
                             <span th:text="${student.transcript.degreeTitle}"></span><br>

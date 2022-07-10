@@ -1,5 +1,7 @@
 package edu.miu.cs.cs425.mystudentmgmtwebapp.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -19,10 +21,11 @@ public class Student {
     private Float cgpa;
 
     @Column(name = "admission_date")
+    @DateTimeFormat
     private LocalDate admissionDate;
 
-    @OneToOne
-    @JoinColumn(name="transcript_id", nullable = false, unique = true)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="transcript_id", nullable = false)
 
     private Transcript transcript;
 
@@ -40,6 +43,11 @@ public class Student {
     public Student() {
     }
 
+    public Student (Long studentId,String name,Transcript transcript){
+        this.studentId = studentId;
+        this.name = name;
+        this.transcript = transcript;
+    }
     public Student(Long studentNumber, String name, Float cgpa, LocalDate admissionDate, Transcript transcript) {
         this.studentNumber = studentNumber;
         this.name = name;
